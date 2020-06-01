@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    build: ./app
+    volumes:
+      - './app/src:/app/src'
+    command: ["go", "run", "main.go"]
+    working_dir: /app/src/
+  app2:
+    build: ./app2
+    volumes:
+      - './app2/src:/app/src'
+    command: ["go", "run", "main.go"]
+    working_dir: /app/src/
+  redis:
+    build: ./redis
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - './nginx/default.conf:/etc/nginx/conf.d/default.conf'
+      - './nginx/nginx.conf:/etc/nginx/nginx.conf'
