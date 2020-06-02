@@ -4,9 +4,9 @@ services:
     build: ./app
     volumes:
       - './app/src:/app/src'
-    # ports:
-    #   - 8080:8080
-    command: ["go", "run", "main.go"]
+    ports:
+      - 8080:8080
+    # command: ["go", "run", "main.go"]
     working_dir: /app/src/
     depends_on:
       - redis
