@@ -29,3 +29,7 @@ services:
     depends_on:
       - app
       - app2
+  open-api:
+    build: ./open-api
+    ports:
+      - 8080:8080
