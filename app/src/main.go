@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
+
+	"example.com/openapi"
 )
 
 func Index(c *gin.Context) {
@@ -50,10 +52,20 @@ func Index(c *gin.Context) {
 }
 
 func main() {
-	r := gin.Default()
-	store, _ := redis.NewStore(10, "tcp", "redis:6379", "", []byte("secret"))
-	r.Use(sessions.Sessions("session", store))
-	r.GET("/", Index)
+	log.Printf("Server started")
 
-	r.Run(":8080")
+	// DefaultApiService := openapi.NewDefaultApiService()
+	MyApiService := openapi.NewMyApiService()
+	DefaultApiController := openapi.NewDefaultApiController(MyApiService)
+
+	router := openapi.NewRouter(DefaultApiController)
+
+	log.Fatal(http.ListenAndServe(":8080", router))
+
+	// r := gin.Default()
+	// store, _ := redis.NewStore(10, "tcp", "redis:6379", "", []byte("secret"))
+	// r.Use(sessions.Sessions("session", store))
+	// r.GET("/", Index)
+
+	// r.Run(":8080")
 }

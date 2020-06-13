@@ -33,12 +33,15 @@ All URIs are relative to *http://localhost/hello*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**TestGet**](docs/DefaultApi.md#testget) | **Get** /test | 
 *DefaultApi* | [**TestPost**](docs/DefaultApi.md#testpost) | **Post** /test | 
 
 
 ## Documentation For Models
 
  - [Error](docs/Error.md)
+ - [TestGet](docs/TestGet.md)
+ - [TestGetResponse](docs/TestGetResponse.md)
  - [TestPost](docs/TestPost.md)
  - [TestPostResponse](docs/TestPostResponse.md)
 

@@ -14,8 +14,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
-
-	"github.com/gorilla/mux"
 )
 
 // A DefaultApiController binds http requests to an api service and writes the service results to the http response
@@ -25,12 +23,12 @@ type DefaultApiController struct {
 
 // NewDefaultApiController creates a default api controller
 func NewDefaultApiController(s DefaultApiServicer) Router {
-	return &DefaultApiController{ service: s }
+	return &DefaultApiController{service: s}
 }
 
 // Routes returns all of the api route for the DefaultApiController
 func (c *DefaultApiController) Routes() Routes {
-	return Routes{ 
+	return Routes{
 		{
 			"TestGet",
 			strings.ToUpper("Get"),
@@ -46,30 +44,30 @@ func (c *DefaultApiController) Routes() Routes {
 	}
 }
 
-// TestGet - 
-func (c *DefaultApiController) TestGet(w http.ResponseWriter, r *http.Request) { 
+// TestGet -
+func (c *DefaultApiController) TestGet(w http.ResponseWriter, r *http.Request) {
 	result, err := c.service.TestGet()
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
 
-// TestPost - 
-func (c *DefaultApiController) TestPost(w http.ResponseWriter, r *http.Request) { 
+// TestPost -
+func (c *DefaultApiController) TestPost(w http.ResponseWriter, r *http.Request) {
 	testPost := &TestPost{}
 	if err := json.NewDecoder(r.Body).Decode(&testPost); err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	result, err := c.service.TestPost(*testPost)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
