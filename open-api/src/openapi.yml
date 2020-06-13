@@ -1,0 +1,71 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: my-swagger
+  description: This is my first sample for Swagger (Open-API)
+  termsOfService: http://swagger.io/terms
+  contact:
+    name: foo
+    email: example@example.com
+    url: http://example.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://localhost/hello
+paths:
+  /test:
+    post:
+      description: Test Post
+      operationId: testPost
+      requestBody:
+        description: Test Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestPost'
+      responses:
+        '200':
+          description: test post response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestPostResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    TestPostResponse:
+      allOf:
+        - $ref: '#/components/schemas/TestPost'
+        - required:
+          - id
+          properties:
+            id:
+              type: integer
+              format: int64
+    TestPost:
+      required:
+        - name  
+      properties:
+        name:
+          type: string
+        tag:
+          type: string    
+
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
