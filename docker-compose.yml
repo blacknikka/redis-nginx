@@ -33,3 +33,11 @@ services:
     build: ./open-api
     ports:
       - 8080:8080
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8000:8080"
+    volumes:
+      - ./open-api/src/openapi.yml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
