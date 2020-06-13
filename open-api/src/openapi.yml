@@ -38,6 +38,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    get:
+      description: Test Get
+      operationId: testGet
+      responses:
+        '200':
+          description: test get response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestGetResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     TestPostResponse:
@@ -49,6 +65,9 @@ components:
             id:
               type: integer
               format: int64
+    TestGetResponse:
+      allOf:
+        - $ref: '#/components/schemas/TestGet'
     TestPost:
       required:
         - name  
@@ -57,7 +76,14 @@ components:
           type: string
         tag:
           type: string    
-
+    TestGet:
+      required:
+        - name  
+      properties:
+        name:
+          type: string
+        tag:
+          type: string    
     Error:
       required:
         - code

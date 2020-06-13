@@ -53,7 +53,8 @@ func main() {
 	r := gin.Default()
 	store, _ := redis.NewStore(10, "tcp", "redis:6379", "", []byte("secret"))
 	r.Use(sessions.Sessions("session", store))
-	r.GET("/", Index)
+	r.GET("/hello/test", Index)
+	r.POST("/hello/test", Index)
 
 	r.Run(":8080")
 }

@@ -15,6 +15,22 @@ servers:
 - url: http://localhost/hello
 paths:
   /test:
+    get:
+      description: Test Get
+      operationId: testGet
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestGetResponse'
+          description: test get response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: unexpected error
     post:
       description: Test Post
       operationId: testPost
@@ -49,10 +65,21 @@ components:
             type: integer
         required:
         - id
+    TestGetResponse:
+      allOf:
+      - $ref: '#/components/schemas/TestGet'
     TestPost:
       example:
         name: name
         tag: tag
+      properties:
+        name:
+          type: string
+        tag:
+          type: string
+      required:
+      - name
+    TestGet:
       properties:
         name:
           type: string
